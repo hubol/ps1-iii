@@ -1,1 +1,2 @@
 public/media/* filter=lfs diff=lfs merge=lfs -text
+media/* filter=lfs diff=lfs merge=lfs -text
