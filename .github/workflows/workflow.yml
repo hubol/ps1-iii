@@ -4,13 +4,25 @@ on:
     branches: [main]
 env:
   HEROKU_APP: iowa-itinerant-intranet-test
-  HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
 jobs:
-  build-docker-image:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - run: >
-          heroku container:login &&
-          heroku container:push web &&
-          heroku container:release web
+          git config --global user.email "hubol.gordon@gmail.com" &&
+          git config --global user.name "hubol"
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_email: hubol.gordon@gmail.com
+          justlogin: true
+      - run: >
+          heroku plugins:install heroku-repo &&
+          heroku repo:reset -a iowa-itinerant-intranet-test
+      - run: >
+          git init &&
+          heroku git:remote -a iowa-itinerant-intranet-test
+      - run: >
+          git add . &&
+          git commit -am "${{ github.event.commits[0].message }}" &&
+          git push heroku master -f
