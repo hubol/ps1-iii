@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { BigImage } from "../components/BigImage";
+import Link from "next/link";
 
 export default function LandingPage() {
     return (
@@ -42,7 +43,9 @@ export default function LandingPage() {
                     </p>
 
                     <div>
-                        <button>Let me iiin</button>
+                        <Link href="/iiindex">
+                            <button>Let me iiin</button>
+                        </Link>
                     </div>
                 </main>
             </div>

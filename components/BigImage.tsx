@@ -8,6 +8,11 @@ export function BigImage({ src }) {
                     display: flex;
                     justify-content: center;
                 }
+                img {
+                    object-fit: contain;
+                    max-width: 100%;
+                    max-height: 100%;
+                }
             `}</style>
         </div>
     );
