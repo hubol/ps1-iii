@@ -21,6 +21,7 @@ jobs:
           heroku plugins:install heroku-repo &&
           heroku repo:reset -a iowa-itinerant-intranet-test
       - run: >
+          rm -rf .git &&
           git init &&
           heroku git:remote -a iowa-itinerant-intranet-test
       - run: >
