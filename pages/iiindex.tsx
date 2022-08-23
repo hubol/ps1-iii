@@ -2,7 +2,8 @@ import * as fs from "fs";
 import Link from "next/link";
 
 export async function getServerSideProps() {
-    const paths = fs.readdirSync("./public/media");
+    const path = process.env.NODE_ENV === "production" ? "./media" : "./public/media";
+    const paths = fs.readdirSync(path);
     return { props: { paths } };
 }
 
