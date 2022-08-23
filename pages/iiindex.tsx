@@ -2,6 +2,7 @@ import * as fs from "fs";
 import Link from "next/link";
 
 export async function getServerSideProps() {
+    console.log(fs.readdirSync("./"));
     const path = process.env.NODE_ENV === "production" ? "./media" : "./public/media";
     const paths = fs.readdirSync(path);
     return { props: { paths } };
@@ -15,7 +16,7 @@ export default function CatalogPage({ paths }) {
             </header>
             <div id="list">
                 {paths.map((x) => (
-                    <Link href="" key={x}>
+                    <Link href={`./media/${x}`} key={x}>
                         <a>{x}</a>
                     </Link>
                 ))}
