@@ -1,7 +1,10 @@
 import * as fs from "fs";
 import Link from "next/link";
+import appRootPath from "app-root-path";
 
 export async function getServerSideProps() {
+    console.log(fs.readdirSync("./"));
+    console.log(fs.readdirSync(appRootPath as any));
     const paths = fs.readdirSync("./media");
     return { props: { paths } };
 }
