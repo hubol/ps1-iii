@@ -1,0 +1,16 @@
+name: Workflow
+on:
+  push:
+    branches: [main]
+env:
+  HEROKU_APP: iowa-itinerant-intranet-test
+  HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: >
+          heroku container:login &&
+          heroku container:push web &&
+          heroku container:release web
