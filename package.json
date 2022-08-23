@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "install": "set -x && git remote add origin https://github.com/hubol/ps1-iii.git ; amazon-linux-extras install -y epel && npm install -y git-lfs && git lfs install && git lfs pull && npm install",
     "start": "next start -p $PORT",
     "lint": "next lint"
   },
