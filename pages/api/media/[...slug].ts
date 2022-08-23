@@ -5,5 +5,5 @@ import appRootPath from "app-root-path";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const name = req.url!.substring("/api/media/".length);
-    send(req, name, { root: `${appRootPath}/media` }).pipe(res);
+    send(req, name, { root: `${appRootPath.path}/media` }).pipe(res);
 }

@@ -4,7 +4,7 @@ import appRootPath from "app-root-path";
 
 export async function getServerSideProps() {
     console.log(fs.readdirSync("./"));
-    console.log(fs.readdirSync(appRootPath as any));
+    console.log(fs.readdirSync(appRootPath.path));
     const paths = fs.readdirSync("./media");
     return { props: { paths } };
 }
