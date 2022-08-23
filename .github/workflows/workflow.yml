@@ -8,6 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: >
           git config --global user.email "hubol.gordon@gmail.com" &&
           git config --global user.name "hubol"
