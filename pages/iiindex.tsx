@@ -1,14 +1,8 @@
 import * as fs from "fs";
 import Link from "next/link";
-import appRootPath from "app-root-path";
 import { getMediiiaPath } from "../components/getMediiiaPath";
 
 export async function getServerSideProps() {
-    console.log(fs.readdirSync("./"));
-    console.log(fs.readdirSync(appRootPath.path));
-    console.log(fs.readdirSync("./.next"));
-    console.log(fs.readdirSync("./.next/static"));
-    console.log(fs.readdirSync("./.next/static/mediiia"));
     const paths = fs.readdirSync(getMediiiaPath());
     return { props: { paths } };
 }
