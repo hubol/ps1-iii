@@ -6,4 +6,5 @@ ENV NODE_ENV production
 RUN npm run build
 #CMD npm run start -- -p $PORT
 RUN npm install http-server -g
+EXPOSE $PORT
 CMD http-server
