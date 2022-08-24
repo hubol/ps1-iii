@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && recursive-copy ./media ./.next/static/media",
+    "build": "next build && recursive-copy ./media ./.next/static/mediiia",
     "start": "next start -p $PORT",
     "lint": "next lint"
   },
