@@ -10,7 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: nschloe/action-cached-lfs-checkout@v1
-      - run: >
-          heroku container:login &&
-          heroku container:push web &&
-          heroku container:release web
+      - run: heroku container:login
+      - uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: registry.heroku.com/${{env.HEROKU_APP}}/web
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - run: heroku container:release web
