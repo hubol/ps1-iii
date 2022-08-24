@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import Link from "next/link";
 import { getMediiiaPath } from "../components/getMediiiaPath";
+import { Title } from "../components/Title";
 
 export async function getServerSideProps() {
     const paths = fs.readdirSync(getMediiiaPath());
@@ -10,6 +11,7 @@ export async function getServerSideProps() {
 export default function CatalogPage({ paths }) {
     return (
         <div id="root">
+            <Title>iiindex</Title>
             <header>
                 <h1>iiindex</h1>
             </header>
