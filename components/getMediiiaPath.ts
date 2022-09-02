@@ -1,5 +1,3 @@
-import { path } from "app-root-path";
-
 export function getMediiiaPath() {
-    return `${path}/media`;
+    return process.env.MEDIA_PATH;
 }

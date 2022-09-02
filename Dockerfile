@@ -7,5 +7,6 @@ COPY ./ /src
 RUN du -sh ./media/above-volcano.mp3
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
+ENV MEDIA_PATH ./media
 RUN npm run build
 CMD npm run start
