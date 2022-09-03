@@ -26,9 +26,9 @@ export default function CatalogPage({ paths }: { paths: Dree }) {
                 <h1>iiindex</h1>
             </header>
             <div id="list">
-                {paths.children!.map((x) => (
+                {(paths.children ?? []).map((x) => (
                     <Link href={`./api/media/${x.relativePath}`} key={x.relativePath}>
-                        <a>{x.name}</a>
+                        <a>{name(x.name)}</a>
                     </Link>
                 ))}
             </div>
@@ -39,9 +39,11 @@ export default function CatalogPage({ paths }: { paths: Dree }) {
                     align-items: flex-start;
                 }
                 a {
+                    max-width: calc(100% - 1.3em);
+                    overflow-wrap: break-word;
                     font-size: 150%;
                     text-decoration: none;
-                    margin-bottom: 0.3em;
+                    margin-bottom: 0.5em;
                     padding-left: 1.3em;
                     color: black;
                 }
@@ -58,5 +60,25 @@ export default function CatalogPage({ paths }: { paths: Dree }) {
                 }
             `}</style>
         </div>
+    );
+}
+
+function name(x: string) {
+    const parts = x.split("_");
+    return (
+        <>
+            {parts.map((x, i) => (
+                <>
+                    {x}
+                    {i < parts.length - 1 ? (
+                        <>
+                            _<wbr />
+                        </>
+                    ) : (
+                        ""
+                    )}
+                </>
+            ))}
+        </>
     );
 }

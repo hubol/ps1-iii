@@ -5,7 +5,7 @@ import { Title } from "../components/Title";
 export default function LandingPage() {
     return (
         <>
-            <Title>You have ariiived</Title>
+            <Title>Landiiing page</Title>
 
             <div id="root">
                 <header>
