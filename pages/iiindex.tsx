@@ -3,9 +3,10 @@ import { getMediiiaPath } from "../components/getMediiiaPath";
 import { Title } from "../components/Title";
 import { Dree, scan } from "dree";
 import removeUndefinedObjects from "remove-undefined-objects";
+import { Fragment } from "react";
 
 export async function getServerSideProps() {
-    let paths = scan(getMediiiaPath(), {
+    let drees = scan(getMediiiaPath(), {
         size: false,
         sizeInBytes: false,
         showHidden: false,
@@ -13,12 +14,28 @@ export async function getServerSideProps() {
         symbolicLinks: false,
         exclude: /(\$RECYCLE\.BIN)|(System Volume Information)/,
         sorted: true,
+        normalize: true,
     });
-    paths = removeUndefinedObjects(paths);
+    drees = removeUndefinedObjects(drees);
+    const paths = flatten(drees)
+        .filter((x) => x.type === "file")
+        .map(({ relativePath, name }) => ({ relativePath, name }));
     return { props: { paths } };
 }
 
-export default function CatalogPage({ paths }: { paths: Dree }) {
+function flatten(root: Dree) {
+    const todo = [root];
+    const out: Dree[] = [];
+    while (todo.length > 0) {
+        const x = todo.shift()!;
+        if (x.children) todo.push(...x.children);
+        out.push(x);
+    }
+
+    return out;
+}
+
+export default function CatalogPage({ paths }: AsyncReturnType<typeof getServerSideProps>["props"]) {
     return (
         <div id="root">
             <Title>iiindex</Title>
@@ -26,7 +43,7 @@ export default function CatalogPage({ paths }: { paths: Dree }) {
                 <h1>iiindex</h1>
             </header>
             <div id="list">
-                {(paths.children ?? []).map((x) => (
+                {paths.map((x) => (
                     <Link href={`./api/media/${x.relativePath}`} key={x.relativePath}>
                         <a>{name(x.name)}</a>
                     </Link>
@@ -68,7 +85,7 @@ function name(x: string) {
     return (
         <>
             {parts.map((x, i) => (
-                <>
+                <Fragment key={i}>
                     {x}
                     {i < parts.length - 1 ? (
                         <>
@@ -77,7 +94,7 @@ function name(x: string) {
                     ) : (
                         ""
                     )}
-                </>
+                </Fragment>
             ))}
         </>
     );
