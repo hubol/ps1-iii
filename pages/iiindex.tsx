@@ -1,14 +1,24 @@
-import * as fs from "fs";
 import Link from "next/link";
 import { getMediiiaPath } from "../components/getMediiiaPath";
 import { Title } from "../components/Title";
+import { Dree, scan } from "dree";
+import removeUndefinedObjects from "remove-undefined-objects";
 
 export async function getServerSideProps() {
-    const paths = fs.readdirSync(getMediiiaPath());
+    let paths = scan(getMediiiaPath(), {
+        size: false,
+        sizeInBytes: false,
+        showHidden: false,
+        excludeEmptyDirectories: true,
+        symbolicLinks: false,
+        exclude: /(\$RECYCLE\.BIN)|(System Volume Information)/,
+        sorted: true,
+    });
+    paths = removeUndefinedObjects(paths);
     return { props: { paths } };
 }
 
-export default function CatalogPage({ paths }) {
+export default function CatalogPage({ paths }: { paths: Dree }) {
     return (
         <div id="root">
             <Title>iiindex</Title>
@@ -16,9 +26,9 @@ export default function CatalogPage({ paths }) {
                 <h1>iiindex</h1>
             </header>
             <div id="list">
-                {paths.map((x) => (
-                    <Link href={`./api/media/${x}`} key={x}>
-                        <a>{x}</a>
+                {paths.children!.map((x) => (
+                    <Link href={`./api/media/${x.relativePath}`} key={x.relativePath}>
+                        <a>{x.name}</a>
                     </Link>
                 ))}
             </div>

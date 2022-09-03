@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "dree": "^3.3.7",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "remove-undefined-objects": "^2.0.1",
     "send": "^0.18.0"
   },
   "devDependencies": {
